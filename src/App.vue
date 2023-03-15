@@ -2,6 +2,7 @@
   <div class="name">
     {{greet}}
   </div>
+  
 </template>
 
 <script>
