@@ -57,8 +57,18 @@ export default {
       todos.value.splice(index, 1);
     }   
 
-    const addTodo = (todo) => {
+    const addTodo = async(todo) => {
       error.value = '';
+      try{
+        const res = await axios.post('http://localhost:3000/todos',{
+          subject: todo.subject,
+          completed: todo.completed
+        });
+        todos.value.push(res.data);
+      }catch(err){
+console.log(err);
+error.value='Something went wrong';
+      }
       axios.post("http://localhost:3000/todos", {
         subject: todo.subject,
         completed: todo.completed
