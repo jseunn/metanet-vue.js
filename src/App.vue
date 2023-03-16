@@ -31,7 +31,13 @@
       :key="todo.id"
       class="card mt-2">
       <div class="card-body p-2">
-        {{ todo.subject }}
+        <div class="form-check">
+          <input class="form-check-input"
+                type="checkbox">
+          <label class="form-check-label">
+            {{ todo.subject }}
+          </label>
+        </div>
       </div>
     </div>    
   </div>   
@@ -42,11 +48,7 @@ import { ref } from 'vue';
 export default {
   setup(){
     const todo = ref('');  
-    const todos = ref([
-      {id:1, subject: 'vue study'},
-      {id:2, subject: 'vue work'}
-    ]); 
-    
+    const todos = ref([]); 
     const hasError = ref(false);    
 
     const onSubmit = () =>{  
@@ -55,9 +57,11 @@ export default {
       }else{
         todos.value.push({
           id: Date.now(),
-          subject: todo.value  
+          subject: todo.value,
+          completed: false,
         });
         hasError.value = false;
+        todo.value ='';
       }          
       
     }
