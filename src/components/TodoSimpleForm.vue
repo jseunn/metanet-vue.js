@@ -29,7 +29,7 @@
   <script>
   import { ref } from 'vue';
   export default {
-    emit: ['add-todo'],
+      emits: ['add-todo'],
       setup(props, {emit}){
           const todo = ref('');
           const hasError = ref(false); 
