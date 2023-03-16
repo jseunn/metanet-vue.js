@@ -8,7 +8,8 @@
     </div>
 
     <TodoList :todos="todos"
-              @toggle-todo="toggleTodo" />
+              @toggle-todo="toggleTodo"
+              @delete-todo="deleteTodo"/>
 
   </div>   
 </template>
