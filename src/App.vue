@@ -28,6 +28,7 @@
 
 <script>
 import { ref, computed } from 'vue';
+import axios from "axios";
 import TodoSimpleForm from './components/TodoSimpleForm.vue';
 import TodoList from './components/TodoList.vue';
 export default {  
@@ -54,6 +55,10 @@ export default {
     }   
 
     const addTodo = (todo) => {
+      axios.post("http://localhost:3000/todos", {
+        subject: todo.subject,
+        completed: todo.completed
+      });
       todos.value.push(todo);
     }
 
