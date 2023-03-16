@@ -66,19 +66,10 @@ export default {
         });
         todos.value.push(res.data);
       }catch(err){
-console.log(err);
-error.value='Something went wrong';
-      }
-      axios.post("http://localhost:3000/todos", {
-        subject: todo.subject,
-        completed: todo.completed
-      }).then(res => {
-        console.log(res.data);
-        todos.value.push(res.data); 
-      }).catch(err => {
         console.log(err);
         error.value='Something went wrong';
-      });
+      }
+      
     }
 
     const toggleTodo = (index) => {     
