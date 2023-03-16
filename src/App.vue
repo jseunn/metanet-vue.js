@@ -1,7 +1,7 @@
 <template>  
   <div class="container">
     <h2>To-Do List</h2>
-    <TodoSimpleForm />
+    <TodoSimpleForm @add-todo="addTodo"/>
     
     <div v-if="!todos.length">
       추가된 Todo가 없습니다.
@@ -42,29 +42,18 @@ export default {
   setup(){
       
     const todos = ref([]);     
-       
-
-    // const onSubmit = () =>{  
-    //   if(todo.value == ''){
-    //     hasError.value = true;
-    //   }else{
-    //     todos.value.push({
-    //       id: Date.now(),
-    //       subject: todo.value,
-    //       completed: false,  
-    //     });
-    //     hasError.value = false;
-    //     todo.value = '';
-    //   } 
-    // }
 
     const deleteTodo = (index) => {
       todos.value.splice(index, 1);
     }   
     
+    const addTodo = (todo) => {
+      todos.value.push(todo);
+    }
     return{      
       todos,      
       deleteTodo,
+      addTodo,
     }
   }  
 }

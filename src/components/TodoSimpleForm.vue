@@ -29,7 +29,7 @@
   <script>
   import { ref } from 'vue';
   export default {
-      setup(){
+      setup(props, context){
           const todo = ref('');
           const hasError = ref(false); 
   
@@ -37,11 +37,12 @@
               if(todo.value == ''){
                   hasError.value = true;
               }else{
-                  // todos.value.push({
-                  //     id: Date.now(),
-                  //     subject: todo.value,
-                  //     completed: false,  
-                  // });
+                context.emit('add-todo', {
+                    id: Date.now(),
+                    subject: todo.value,
+                    completed: false,
+                }); 
+
                   hasError.value = false;
                   todo.value = '';
               } 
