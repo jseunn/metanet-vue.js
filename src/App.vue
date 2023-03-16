@@ -11,7 +11,10 @@
     <br>
 
     <TodoSimpleForm @add-todo="addTodo"/>
-    
+    <div style="color: red">
+      {{ error }}
+    </div>
+
     <div v-if="!todos.length">
       추가된 Todo가 없습니다.
     </div>
@@ -48,18 +51,24 @@ export default {
       }
       return todos.value
     });
-   
+    const error = ref('');
 
     const deleteTodo = (index) => {
       todos.value.splice(index, 1);
     }   
 
     const addTodo = (todo) => {
+      error.value = '';
       axios.post("http://localhost:3000/todos", {
         subject: todo.subject,
         completed: todo.completed
+      }).then(res => {
+        console.log(res.data);
+        todos.value.push(res.data); 
+      }).catch(err => {
+        console.log(err);
+        error.value='Something went wrong';
       });
-      todos.value.push(todo);
     }
 
     const toggleTodo = (index) => {     
@@ -73,6 +82,7 @@ export default {
       toggleTodo,
       searchText,
       filteredTodos,
+      error,
     }
   }  
 }
