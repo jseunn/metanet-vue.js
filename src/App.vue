@@ -16,6 +16,9 @@
       추가된 Todo가 없습니다.
     </div>
 
+    <div v-if="!filteredTodos.length">
+      There is nothing to display
+    </div>
      <TodoList :todos="filteredTodos"
               @toggle-todo="toggleTodo"
               @delete-todo="deleteTodo"/>
