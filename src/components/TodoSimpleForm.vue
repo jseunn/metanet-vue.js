@@ -37,12 +37,12 @@
               if(todo.value == ''){
                   hasError.value = true;
               }else{
-                context.emit('add-todo', {
-                    id: Date.now(),
-                    subject: todo.value,
-                    completed: false,
-                }); 
-
+                  context.emit('add-todo', {
+                      id: Date.now(),
+                      subject: todo.value,
+                      completed: false,
+                  });
+  
                   hasError.value = false;
                   todo.value = '';
               } 
