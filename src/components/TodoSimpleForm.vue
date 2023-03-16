@@ -29,6 +29,7 @@
   <script>
   import { ref } from 'vue';
   export default {
+    emit: ['add-todo'],
       setup(props, context){
           const todo = ref('');
           const hasError = ref(false); 
