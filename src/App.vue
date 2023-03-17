@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Home</a>
+    <router-link class="navbar-brand" to="/">Home</router-link>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/todos">Todos</a>
+        <router-link class="navbar-brand" to="/todos">Todos</router-link>
       </li>
     </ul>
   </nav>    
