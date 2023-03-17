@@ -29,22 +29,22 @@
         <li
           v-if="currentPage !== 1" 
           class="page-item">
-          <a class="page-link" 
-          @click="getTodos(currentPage-1)">Previous</a>
+          <a class="page-link" @click="getTodos(currentPage - 1)">Previous</a>
         </li>
         <li
           v-for="page in numberOfPages"
           :key="page"
           class="page-item"
           :class="currentPage === page ? 'active' : ''">
-          <a class="page-link" 
-              @click="getTodos(page)">{{page}}</a>
+          <a class="page-link"
+             @click="getTodos(page)">
+             {{page}}
+          </a>
         </li>        
         <li 
           v-if="numberOfPages != currentPage"
           class="page-item">
-          <a class="page-link"
-          @click="getTodos(currentPage+1)">Next</a>
+          <a class="page-link" @click="getTodos(currentPage + 1)">Next</a>
         </li>
       </ul>
     </nav>          
@@ -76,17 +76,15 @@ export default {
 
     const numberOfPages = computed(() => {
       return Math.ceil(numberOfTodos.value/limit);
-    });
-
-    
-    
+    });   
 
     const deleteTodo = async (index) => {
       error.value = '';
       const id = todos.value[index].id;
       try{
         await axios.delete('http://localhost:3000/todos/'+id);
-        todos.value.splice(index, 1);
+        //todos.value.splice(index, 1);
+         getTodos(1);
       }catch(err){
         console.log(err);
         error.value = 'Someting went wrong';
@@ -94,15 +92,14 @@ export default {
     }   
 
     const getTodos = async (page = currentPage.value) => {
-      error.value = '';
       currentPage.value = page;
+      error.value = '';
       try{
         const res = await axios.get(
-          `http://localhost:3000/todos?subject_like=${searchText.value}&_page=${page}&_limit=${limit}`);
+          `http://localhost:3000/todos?_sort=id&_order=desc&subject_like=${searchText.value}&_page=${page}&_limit=${limit}`);
 
-        numberOfTodos.value = res.headers['x-total-count'];  
-        //console.log(res.headers['x-total-count']);
-        todos.value = res.data;
+        numberOfTodos.value = res.headers['x-total-count'];         
+        todos.value = res.data;       
       }catch(err){
         console.log(err);
         error.value = 'Someting went wrong';
@@ -114,11 +111,12 @@ export default {
     const addTodo = async (todo) => {
       error.value = '';
       try{
-        const res = await axios.post('http://localhost:3000/todos', {
+        await axios.post('http://localhost:3000/todos', {
           subject: todo.subject,
           completed: todo.completed
         });
-        todos.value.push(res.data);
+        //todos.value.push(res.data);
+         getTodos(1);
       }catch(err){
         console.log(err);
         error.value = 'Someting went wrong';
