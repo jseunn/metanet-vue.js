@@ -6,59 +6,9 @@
       "id": 1
     },
     {
-      "subject": "ㅋㅋㅋㅋ",
-      "completed": true,
-      "id": 2
-    },
-    {
-      "subject": "ㅋㅋ",
+      "subject": "ㅀ",
       "completed": false,
       "id": 3
-    },
-    {
-      "subject": "ㅋㅋ",
-      "completed": false,
-      "id": 4
-    },
-    {
-      "subject": "ㅋㅋ",
-      "completed": false,
-      "id": 5
-    },
-    {
-      "subject": "ㅋㅋ",
-      "completed": false,
-      "id": 6
-    },
-    {
-      "subject": "ㅋㅋ",
-      "completed": false,
-      "id": 7
-    },
-    {
-      "subject": "ㅋㅋㄹㅋㄴ",
-      "completed": false,
-      "id": 8
-    },
-    {
-      "subject": "ㅁㅇ",
-      "completed": false,
-      "id": 9
-    },
-    {
-      "subject": "ㄴㅁㅇㅁㄴ",
-      "completed": false,
-      "id": 10
-    },
-    {
-      "subject": "ㅁㄴㅇㅁㄴㅇ",
-      "completed": false,
-      "id": 11
-    },
-    {
-      "subject": "ㄴㅁㅇ",
-      "completed": false,
-      "id": 12
     }
   ]
 }
