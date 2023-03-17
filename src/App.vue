@@ -6,6 +6,7 @@
       type="text" 
       v-model="searchText"
       placeholder="Search"
+      @keyup.enter="searchTodo"
     >
     <hr>
     <TodoSimpleForm @add-todo="addTodo"/>
@@ -69,10 +70,19 @@ export default {
     const numberOfTodos = ref(0);
     const limit = 5;
     const currentPage = ref(1);
+    let timeout = null;
 
     watch(searchText, () => {
-      getTodos(1);
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        getTodos(1);
+        }, 2000);
     });
+
+    const searchTodo = () => {
+      clearTimeout(timeout);
+      getTodos(1);
+    }
 
     const numberOfPages = computed(() => {
       return Math.ceil(numberOfTodos.value/limit);
@@ -149,6 +159,7 @@ export default {
       limit,
       currentPage,
       numberOfPages, 
+      searchTodo,
     }
   }  
 }
