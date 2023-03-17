@@ -15,11 +15,11 @@
       추가된 Todo가 없습니다.
     </div>
 
-    <div v-if="!filteredTodos.length">
+    <div v-if="!todos.length">
       There is noting to display  
     </div>    
 
-    <TodoList :todos="filteredTodos"
+    <TodoList :todos="todos"
               @toggle-todo="toggleTodo"
               @delete-todo="deleteTodo" />
 
@@ -70,21 +70,16 @@ export default {
     const limit = 5;
     const currentPage = ref(1);
 
-    watch(currentPage)
+    watch(searchText, () => {
+      getTodos(1);
+    });
 
     const numberOfPages = computed(() => {
       return Math.ceil(numberOfTodos.value/limit);
     });
 
-    const filteredTodos = computed(() => {
-      if(searchText.value){
-        return todos.value.filter(todo => {
-          return todo.subject.includes(searchText.value);
-        });
-      }
-
-      return todos.value
-    });
+    
+    
 
     const deleteTodo = async (index) => {
       error.value = '';
@@ -103,7 +98,7 @@ export default {
       currentPage.value = page;
       try{
         const res = await axios.get(
-          `http://localhost:3000/todos?_page=${page}&_limit=${limit}`);
+          `http://localhost:3000/todos?subject_like=${searchText.value}&_page=${page}&_limit=${limit}`);
 
         numberOfTodos.value = res.headers['x-total-count'];  
         //console.log(res.headers['x-total-count']);
@@ -150,7 +145,6 @@ export default {
       addTodo,
       toggleTodo, 
       searchText,
-      filteredTodos, 
       error,  
       getTodos,
       numberOfTodos,
