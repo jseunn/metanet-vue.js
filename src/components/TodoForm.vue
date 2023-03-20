@@ -11,7 +11,7 @@
               <input v-model="todo.subject" type="text" class="form-control">
               </div>
            </div>
-           <div class="col-6">
+           <div v-if="editing" class="col-6">
               <div class="form-group">
                <label>status</label>
                <div>
@@ -24,8 +24,15 @@
                </div>
               </div>
           </div>
+          <div class="col-12">
+            <div class="form-group">
+                <label>Body</label>
+                <textarea v-model="todo.body" class="form-control"
+                    cols="30" rows="10"></textarea>
+            </div>
+          </div>
       </div>
-      <button type="submit" class="btn btn-primary" :disabled = "!todoUpdated">Save</button>
+      <button type="submit" class="btn btn-primary" :disabled = "!todoUpdated">{{ editing ? 'Update' : 'Create' }}</button>
       <button class="btn btn-primary ml-2" @click="moveToListPage">Cancel</button>
       </form>
       <Toast v-if="showToast"
@@ -49,9 +56,14 @@
   export default {
       components: {
           Toast
-         
       },
-      setup(){
+      props: {
+        editing : {
+            type: Boolean,
+            default: false
+        }
+      },
+      setup(props){
           onUnmounted(() => {
               console.log('unmounted');
               clearTimeout(timeout.value);    
@@ -61,8 +73,11 @@
   
           const route = useRoute();
           const router = useRouter();
-          const todo = ref(null);
-          const loading = ref(true);  //처음엔 true
+          const todo = ref({
+            subject: '',
+            completed: false,
+          });
+          const loading = ref(false);  //처음엔 true
           const todoId =  route.params.id;
           const originalTodo = ref(null);
 
@@ -94,20 +109,24 @@
   
           //input창에 해당 id의 subject 보이기
           const getTodo =async() => {
+            loading.value = true;
               try{
                   const res =  await axios.get(`http://localhost:3000/todos/${todoId}`);
                   todo.value = {...res.data};
                   originalTodo.value = {...res.data};
                   loading.value = false;  //데이터 받아오면 false
               }catch(err){
+                loading.value = false;
                   console.log(err);
                   triggerToast('something went wrong', 'danger'); //기본은 success
               }
            
           };
   
-  
-          getTodo();
+          if(props.editing){
+              getTodo(); // _id로 갈 때만 호출이 되도록 한다. (props.editing이 true일 때)
+          }
+
           const toggleTodoStatus = () => {
               todo.value.completed = ! todo.value.completed;
           };
