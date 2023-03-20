@@ -75,9 +75,9 @@
     </ul>
   </nav>      
   </div>
-
-
-  <Toast/>
+  <Toast v-if="showToast"
+              :message="toastMessage"
+              :type="toastAlertType"/>
 </template>
 
 
@@ -194,7 +194,8 @@ setup() {
       getTodos(1);
     }catch(err) {
       //서버가 정상적으로 작동하지않은채로 Add하면 에러메시지
-      error.value="Something went wrong";
+      triggerToast('something went wrong', 'danger');
+      
     }
   }
 
@@ -214,7 +215,7 @@ setup() {
       todos.value[index].completed = checked;  //
     }catch(err){
       console.log(err);
-      error.value = 'Someting went wrong';
+      triggerToast('something went wrong', 'danger');
     }
   }
  
@@ -232,7 +233,7 @@ setup() {
       getTodos(1);  //데이터 값만 불러오기
     }catch(err){
       console.log(err)
-      err.value =error.value = 'Something went wrong';
+      triggerToast('something went wrong', 'danger');
     }
   }
 
@@ -253,7 +254,7 @@ setup() {
     }catch(err){
       //서버가 정상적으로 작동하지않은채로 Add하면 에러메시지
       console.log(err);
-      error.value = 'Someting went wrong';
+      triggerToast('something went wrong', 'danger');
     }
   }
 
