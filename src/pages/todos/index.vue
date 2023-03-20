@@ -2,7 +2,9 @@
   <div>
     <div class="d-flex justify-content-between mb-3">
       <h2>To-Do</h2>
-      <button class="btn btn-primary">
+      <button class="btn btn-primary"
+              @click="moveToCreatePage"
+      >
         Create Todo
       </button>
     </div>
@@ -81,7 +83,7 @@ import TodoList from '@/components/TodoList.vue';
 import Toast from '@/components/Toast.vue';
 import axios from "axios";
 import { useToast } from '@/composables/toast'; // import 'toast.js'
-
+import { useRouter } from 'vue-router';
 
 
 
@@ -110,6 +112,7 @@ setup() {
   const limit = 5;
   const currentPage = ref(1);
   let timeout = null;
+  const router = useRouter();
 
   const{
     toastMessage,
@@ -127,6 +130,11 @@ setup() {
   });
 
 
+  const moveToCreatePage = () => {
+    router.push({
+      name: 'TodoCreate'
+    });
+  }
   const searchTodo = () => {  //엔터쳤을때
     clearTimeout(timeout); //기존 검색 취소
     getTodos(1);           //바로 조회
@@ -265,6 +273,7 @@ setup() {
     toastMessage,
     toastAlertType,
     triggerToast,
+    moveToCreatePage,
   }
 }
 }
