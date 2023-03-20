@@ -1,22 +1,13 @@
 <template>  
   <div>
-  <h2>To-Do</h2>
-
-
-
-
-  <input
-    class="form-control"
-    type="text"
-    v-model="searchText"
-    placeholder="Search"
-    @keyup.enter="searchTodo"
-  >
+    <div class="d-flex justify-content-between mb-3">
+      <h2>To-Do</h2>
+      <button class="btn btn-primary">
+        Create Todo
+      </button>
+    </div>
 
   <hr>
-
-
-
 
   <TodoSimpleForm @add-todo="addTodo"/>
   <div style="color: red">{{error}}</div>
