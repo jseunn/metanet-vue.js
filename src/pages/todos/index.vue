@@ -127,23 +127,6 @@ setup() {
     triggerToast
   } = useToast(); // useToast의 해당 값들 호출
 
-  // const showToast = ref(false);
-  // const toastMessage = ref('');
-  // const toastAlertType = ref('');
-
-
-  // //Toast.vue에 메시지 전달
-  // const triggerToast = (message, type='success') => {
-  //     showToast.value = true;
-  //     toastMessage.value = message;
-  //     toastAlertType.value = type;
-  //     setTimeout(() => {  
-  //         toastMessage.value = '';
-  //         showToast.value = false;
-  //         toastAlertType.value = '';
-  //     }, 3000);
-  // }
-
 
   watch(searchText, () => { //searchText값에 변화가 있다면
     clearTimeout(timeout);  //검색어가 바뀌면 초기화(이전것을 검색하지 않도록)
