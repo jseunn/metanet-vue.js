@@ -42,12 +42,14 @@
     <Toast v-if="showToast"
           :message="toastMessage"
           :type="toastAlertType"/>
+        
+    <div id="kosa">Kosa</div>
   </template>
   
   <script>
   import {useRoute, useRouter} from 'vue-router';
   import axios from 'axios';
-  import {ref, computed} from '@vue/reactivity';
+  import {ref, computed, onUnmounted} from 'vue';
   import _ from 'lodash';
   import Toast from '@/components/Toast.vue';
   export default {
@@ -55,27 +57,33 @@
           Toast
       },
       setup(){
-          const route = useRoute();
-          const router = useRouter();
-          const todo = ref(null);
-          const loading = ref(true);
-          const todoId = route.params.id;
-          const originalTodo = ref(null);
-  
-          const showToast = ref(false);
-          const toastMessage = ref('');
-          const toastAlertType = ref('');
-  
-          const triggerToast = (message, type='success') => {
-              showToast.value = true;
-              toastMessage.value = message;
-              toastAlertType.value = type;
-              setTimeout(() => {
-                  toastMessage.value = '';
-                  showToast.value = false;
-                  toastAlertType.value = '';
-              }, 3000);
-          }
+        onUnmounted(() => {
+            console.log('update');
+            clearTimeout(timeout.value);
+        });
+
+        const route = useRoute();
+        const router = useRouter();
+        const todo = ref(null);
+        const loading = ref(true);
+        const todoId = route.params.id;
+        const originalTodo = ref(null);
+
+        const showToast = ref(false);
+        const toastMessage = ref('');
+        const toastAlertType = ref('');
+
+        const triggerToast = (message, type='success') => {
+            showToast.value = true;
+            toastMessage.value = message;
+            toastAlertType.value = type;
+            timeout.value= setTimeout(() => {
+                console.log('hello');
+                toastMessage.value = '';
+                showToast.value = false;
+                toastAlertType.value = '';
+            }, 3000);
+        }
   
           const onSave = async () => {
               const res = await axios.put(`http://localhost:3000/todos/${todoId}`, {

@@ -58,10 +58,12 @@ import { ref, computed, watch } from 'vue';
 import axios from "axios";
 import TodoSimpleForm from '@/components/TodoSimpleForm.vue';
 import TodoList from '@/components/TodoList.vue';
+import Toast from '@/components/Toast.vue';
 export default {  
   components: {
     TodoSimpleForm,
-    TodoList
+    TodoList,
+    Toast,
   },
   setup(){      
     const todos = ref([]); 
