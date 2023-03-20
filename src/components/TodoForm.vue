@@ -104,9 +104,12 @@
                     res = await axios.put(`http://localhost:3000/todos/${todoId}`, data);
                 }else{
                     res = await axios.post('http://localhost:3000/todos', data);
+                    todo.value.subject = '';
+                    todo.value.body = '';
                 }
                 originalTodo.value = {...res.data}; // 수정한 값을 현재값으로 바꾸기
-                triggerToast('Successfully save!!'); //수정했을 때 toast가 나오게하기 // 수정 & 입력 작업 시 둘 다 필요
+                const message = 'Successfully ' + (props.editing ? 'Update!' : 'Create!')
+                triggerToast(message); //수정했을 때 toast가 나오게하기 // 수정 & 입력 작업 시 둘 다 필요
             } catch (err) {
                 console.log(err);
                 triggerToast('something went wrong', 'danger');
