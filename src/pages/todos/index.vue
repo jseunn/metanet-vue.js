@@ -89,6 +89,7 @@ import TodoSimpleForm from '@/components/TodoSimpleForm.vue';
 import TodoList from '@/components/TodoList.vue';
 import Toast from '@/components/Toast.vue';
 import axios from "axios";
+import { useToast } from '@/composables/toast'; // import 'toast.js'
 
 
 
@@ -119,23 +120,29 @@ setup() {
   const currentPage = ref(1);
   let timeout = null;
 
+  const{
+    toastMessage,
+    toastAlertType,
+    showToast,
+    triggerToast
+  } = useToast(); // useToast의 해당 값들 호출
 
-  const showToast = ref(false);
-  const toastMessage = ref('');
-  const toastAlertType = ref('');
+  // const showToast = ref(false);
+  // const toastMessage = ref('');
+  // const toastAlertType = ref('');
 
 
-  //Toast.vue에 메시지 전달
-  const triggerToast = (message, type='success') => {
-      showToast.value = true;
-      toastMessage.value = message;
-      toastAlertType.value = type;
-      setTimeout(() => {  
-          toastMessage.value = '';
-          showToast.value = false;
-          toastAlertType.value = '';
-      }, 3000);
-  }
+  // //Toast.vue에 메시지 전달
+  // const triggerToast = (message, type='success') => {
+  //     showToast.value = true;
+  //     toastMessage.value = message;
+  //     toastAlertType.value = type;
+  //     setTimeout(() => {  
+  //         toastMessage.value = '';
+  //         showToast.value = false;
+  //         toastAlertType.value = '';
+  //     }, 3000);
+  // }
 
 
   watch(searchText, () => { //searchText값에 변화가 있다면
