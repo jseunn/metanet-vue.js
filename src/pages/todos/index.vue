@@ -181,7 +181,18 @@ setup() {
     }
   }
 
-
+  const testPage = async () =>{
+    error.value = '';
+    console.log("ok");
+    try {
+      const res = await axios.get('/hello');
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+      //triggerToast('something went wrong', 'danger');
+      
+    }
+  }
 
 
   // Update 체크박스 스타일
@@ -267,6 +278,7 @@ setup() {
     toastAlertType,
     triggerToast,
     moveToCreatePage,
+    testPage
   }
 }
 }
